@@ -1,13 +1,29 @@
 
 
-<form action="{{route('users.create')}}" method="post"class="form-horizonta" method="POST">
+<form action="{{route('users.store')}}"class="form-horizonta" method="POST">
 {{ csrf_field() }}
+
+
 <div class="container">
     <div class="row">
         <h3>Novo </h3></br></br></br>
         </br></br></br>
    <input type="hidden" id="redirect_to" name="redirect_to" value={{URL::previous()}}>
+   <div>
+        <label for="grupo_id">grupo</label>
+       
+    <select id='grupo_id' name='grupo_id' class='form-control'>
+    <option value=''>selecione um grupo </option> 
+    @foreach($gruplist as $grupos)
+
+    <option value='{{ $grupos->id }}'>{{ $grupos->nome }} </option> 
+
+
+    @endforeach
+    </select>
+    </div>
    </br></br>
+
     <div>
         <label for="nome">nome </label>
         <input type="text" id="nome" name="nome">
@@ -28,13 +44,8 @@
         <label for="senha">Senha</label>
         <input type="password" id="senha" name="senha">
     </div>
-    
-    </br></br>
-    <div>
-        <label for="grupo">grupo</label>
-        <input type="text" id="grupo" name="grupo">
-    </div>
-    </br></br>
+
+
 
     </br></br>
         <div class="form-group">

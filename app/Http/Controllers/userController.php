@@ -4,18 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UserModel;
+use App\Models\GrupoModel;
 
 class userController extends Controller
 {
+    
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        if ($request->session()->get('auth')){      
         $userlist = UserModel::get();
         $data['listuser']= $userlist;
+
+
         //
         $str =  view('comum.header', $data);
         $str .=  view('user.index', $data);
@@ -23,6 +29,13 @@ class userController extends Controller
         
 
         return $str;
+    }else{
+        $request->session()->put('auth',  0);
+        $request->session()->flash('message', 'Voce não tem permissão ');
+
+        return redirect()->to('logins');
+
+    }
     }
 
     /**
@@ -30,30 +43,18 @@ class userController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create()
     {
         //
-        if ($request->isMethod('post')){
 
-        
            
         // dd($request->all());
-        UserModel::create
-        ([
-                'nome' => $request->nome,
-                'email' => $request->email,
-                'telefone' => $request->telefone,
-                'senha' => $request->senha,
-
-
-        ]);
-
-            $request->session()->flash('message', ' cadastrado com sucesso');
-        return redirect()->to('users');
-
-        }else {
+   
+        
             $data= array();
-
+            $gruplist = GrupoModel::get();
+            $data['gruplist']= $gruplist;
+            //
            //
            $str =  view('comum.header', $data);
            $str .=  view('user.create', $data);
@@ -62,7 +63,7 @@ class userController extends Controller
    
            return $str;
 
-        }
+        
     }
 
     /**
@@ -73,6 +74,17 @@ class userController extends Controller
      */
     public function store(Request $request)
     {
+        UserModel::create([
+            'grupo_id' => $request->grupo_id,
+            'nome' => $request->nome,
+            'email' => $request->email,
+            'telefone' => $request->telefone,
+            'senha' => $request->senha,
+
+
+    ]);
+        $request->session()->flash('message', ' cadatrado com sucesso');
+        return redirect()->to('users');
         
     }
 
@@ -103,7 +115,8 @@ class userController extends Controller
 
         $data ["usuario"] = $reg;
         $data ["user"] = $reg;
-
+        $gruplist = GrupoModel::get();
+        $data['gruplist']= $gruplist;
 
         $str =  view('comum.header', $data);
         $str .=  view('user.edit', $data);
@@ -152,5 +165,10 @@ class userController extends Controller
     public function destroy($id)
     {
         //
+        UserModel::findOrFail($id)->delete;
+
+                $request->session()->flash('message', ' Excluido com sucesso');
+                return redirect()->to('users');
+
     }
 }

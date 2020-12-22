@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\grupoController;
+use App\Http\Controllers\LoginController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +23,15 @@ Route::redirect('/', "dashboard");
 
 //usuarios
 Route::resource('users', userController::class);
-Route::resource('grupos', grupoController::class);
+
 
 
 //dashboard
 //Route::get('grupos', 'App\Http\Controllers\adminController');
 Route::get('dashboard', [dashboardController::class, 'index'])->name('dashboardview');
+
+//GRUPOS
+Route::resource('grupox', GrupoController::class);
+
+route::resource('logins',LoginController::class);
+

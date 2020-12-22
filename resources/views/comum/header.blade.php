@@ -75,6 +75,12 @@
               Usuario
             </a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{route('grupox.index')}}">
+              <span data-feather="file"></span>
+              grupos
+            </a>
+          </li>
         
         </ul>
 

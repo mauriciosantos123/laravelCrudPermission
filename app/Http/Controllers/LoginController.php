@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\UserModel;
-class dashboardController extends Controller
+
+class LoginController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -13,19 +14,11 @@ class dashboardController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->session()->get('auth')){        
-       // $usuarios = UserModel::all();
-        $str =  view('comum.header');
-        $str .=  view('dashboard.index');
-        $str .=  view('comum.footer');
-        return $str;
-        }else{
-            $request->session()->put('auth',  0);
-            $request->session()->flash('message', 'Voce não tem permissão ');
+        //print_r($request->session());
+        //die();
 
-            return redirect()->to('logins');
-
-        }
+        $data['message']= $request->session()->get('message');
+        return view('viewlogin.screenlogin',$data);
     }
 
     /**
@@ -47,6 +40,37 @@ class dashboardController extends Controller
     public function store(Request $request)
     {
         //
+            $res = UserModel::where('email',$request->email)->get()->first();
+            //$res = $res[0];
+            //print_r($res);
+           
+            $teste= strlen($res->email);
+            //echo($teste);
+            //die();
+            if(isset($teste) ){
+                if($res->senha==$request->senha){
+                    $request->session()->put('user_id',  $res->id);
+                    $request->session()->put('auth',  1);
+                    return redirect()->to('dashboard');
+
+                }else {
+                   $request->session()->put('auth',  0);
+                    $request->session()->flash('message', ' senha incorreta');
+  
+                   
+                   return redirect()->to('logins');
+                    
+
+                }
+
+            }else{
+                $request->session()->put('auth',  0);
+                $request->session()->flash('message', ' verificar email e senha ');
+                
+                return redirect()->to('logins');
+
+            }
+                
     }
 
     /**

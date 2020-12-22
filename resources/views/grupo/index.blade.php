@@ -1,6 +1,6 @@
 
 
- <a href="{{route('user_new')}}" class="btn btn-primary">Novo</a>
+ <a href="{{route('grupox.create')}}" class="btn btn-primary">Novo</a>
 
 <table class="table table-striped">
     <thead>
@@ -12,20 +12,19 @@
         </tr>
     </thead>
     <tbody>
-    @foreach($listuser as $user)
+    @foreach($listgrup as $rgrup)
         <tr>
-            <td>{{ $user->id }}</td>
-            <td>{{ $user->nome }}</td>
+            <td>{{ $rgrup->id }}</td>
+            <td>{{ $rgrup->nome }}</td>
 
             <td>
                 <ul class="list-inline">
                 <div class="row">
                     <li>
-                    <!--MUDAR QUANDO ARRUMA A ROTA DO EDIT-->
-                    <a class="btn btn-primary" href="{{route('users.edit',$ruser->id)}}">Editar</a>
+                    <a class="btn btn-primary" href="{{route('grupox.edit',$rgrup->id)}}">Editar</a>
                     </li>
                     <li>
-                    <a class="btn btn-danger" href="">Deletar</a>
+                    <a class="btn btn-danger" href="{{route('grupox.destroy',$rgrup->id)}}">Deletar</a>
                     </li>
                     </div>
                 </ul>

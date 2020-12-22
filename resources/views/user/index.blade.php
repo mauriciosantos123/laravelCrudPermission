@@ -9,6 +9,7 @@
                     <th>Nome</th>
                     <th>Email</th>
                     <th>Telefone</th>
+                    <th>grupo</th>
                     
                 </tr>
             </thead>
@@ -19,6 +20,7 @@
                     <td>{{ $ruser->nome }}</td>
                     <td>{{ $ruser->email }}</td>
                     <td>{{ $ruser->telefone }}</td>
+                    <td>{{ $ruser->grupo_id }}</td>
                     <td>
                         <ul class="list-inline">
                         <div class="row">
@@ -26,7 +28,7 @@
                             <a class="btn btn-primary" href="{{route('users.edit',$ruser->id)}}">Editar</a>
                             </li>
                             <li>
-                            <a class="btn btn-danger" href="">Deletar</a>
+                            <a class="btn btn-danger" href="{{route('users.destroy',$ruser->id)}}">Deletar</a>
                             </li>
                             </div>
                         </ul>

@@ -9,6 +9,20 @@
         </br></br></br>
    <input type="hidden" id="redirect_to" name="redirect_to" value={{URL::previous()}}>
    <input type="hidden" id="id" name="id" value="{{$usuario->id}}">
+   <div>
+        <label for="grupo_id">grupo</label>
+       
+    <select id='grupo_id' name='grupo_id' class='form-control'>
+    <option value=''>selecione um grupo </option> 
+    @foreach($gruplist as $grupos)
+
+    <option value='{{ $grupos->id }}' {{  ($grupos->id== $usuario->grupo_id)?'selected':'' }} >{{ $grupos->nome }} </option> 
+
+
+    @endforeach
+    </select>
+    </div>
+   </br></br>
    </br></br>
     <div>
         <label for="nome">nome </label>

@@ -9,12 +9,12 @@
     <meta name="generator" content="Hugo 0.79.0">
     <title>Signin Template · Bootstrap v5.0</title>
 
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/sign-in/">
+
 
     
 
     <!-- Bootstrap core CSS -->
-<link href="/docs/5.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 
     <!-- Favicons -->
 <link rel="apple-touch-icon" href="/docs/5.0/assets/img/favicons/apple-touch-icon.png" sizes="180x180">
@@ -44,24 +44,29 @@
 
     
     <!-- Custom styles for this template -->
-    <link href="signin.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.0/examples/sign-in/signin.css" rel="stylesheet">
   </head>
   <body class="text-center">
-    
+
 <main class="form-signin">
-  <form>
-    <img class="mb-4" src="/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
+@if(!empty($message))
+<div class="alert alert-danger" >{{ $message }}</div>
+@endif
+  <form method='POST' action="{{route('logins.store')}}">
+  {{ csrf_field() }}
+    <img class="mb-4" src="https://getbootstrap.com/docs/5.0/assets/brand/bootstrap-logo.svg" alt="" width="72" height="57">
     <h1 class="h3 mb-3 fw-normal">Faça seu login </h1>
     <label for="inputEmail" class="visually-hidden">Email </label>
-    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required autofocus>
-    <label for="inputPassword" class="visually-hidden">Senha</label>
-    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required>
+    <input type="email" id="inputEmail"  name='email' class="form-control" placeholder="Email " required autofocus>
+    <label for="senha" class="visually-hidden">Senha</label>
+    <input type="password" id="senha" class="form-control" placeholder="senha" required name='senha' >
     <div class="checkbox mb-3">
       <label>
         <input type="checkbox" value="remember-me"> Lembrar acesso
       </label>
     </div>
     <button class="w-100 btn btn-lg btn-primary" type="submit">Entrar</button>
+    
     <p class="mt-5 mb-3 text-muted">&copy; 2017-2020</p>
   </form>
 </main>

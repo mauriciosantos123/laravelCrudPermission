@@ -10,6 +10,7 @@ class UserModel extends Model
     protected $table = "usuario";
 
     protected $fillable = [
+        'grupo_id',
         'nome',
         'email',
         'telefone',

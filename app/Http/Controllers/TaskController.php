@@ -3,29 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\UserModel;
-class dashboardController extends Controller
+
+class TaskController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        if ($request->session()->get('auth')){        
-       // $usuarios = UserModel::all();
-        $str =  view('comum.header');
-        $str .=  view('dashboard.index');
-        $str .=  view('comum.footer');
-        return $str;
-        }else{
-            $request->session()->put('auth',  0);
-            $request->session()->flash('message', 'Voce não tem permissão ');
-
-            return redirect()->to('logins');
-
-        }
+        //
     }
 
     /**
